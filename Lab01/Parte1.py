@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from math import sqrt
+import matplotlib.patches as mpatches
 import numpy as np
 
 def Foo(fx,x):
@@ -54,7 +54,35 @@ def main():
     #     a b c d
     fx = [0,0,0,0]
     (fxs,esses) = Minimize(fx,X,Y,1e-5,50)
+    fx = fxs[len(fxs)-1]
     plt.plot(esses)
+    plt.title('Quadric Error X Steps')
+    plt.ylabel('Quadric Error')
+    plt.xlabel('Steps')
+    plt.savefig('QuadricErrorXSteps.png')
+    plt.show()
+    
+    
+    print(fx)
+    
+    blue_patch = mpatches.Patch(color='blue', label='A')
+    orange_patch = mpatches.Patch(color='orange', label='B')
+    green_patch = mpatches.Patch(color='green', label='C')
+    red_patch = mpatches.Patch(color='red', label='D')
+    plt.legend(handles=[blue_patch,orange_patch,green_patch,red_patch],
+               bbox_to_anchor=(0.9, 0.8),bbox_transform=plt.gcf().transFigure)
+    plt.plot(fxs)
+    plt.title('Parameter Values X Steps')
+    plt.ylabel('Parameter Value')
+    plt.xlabel('Steps')
+    plt.savefig('ParameterValuesXSteps.png')
+    plt.show()
+    
+    plt.plot(X,Y,'ro')
+    x = np.arange(-5., 5.,0.1)
+    plt.plot(x,fx[0]*x**3 + fx[1]*x**2 + fx[2]*x + fx[3])
+    plt.title('Fited Curve')
+    plt.savefig('FitedCurve.png')
     plt.show()
     
   
